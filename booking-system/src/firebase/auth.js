@@ -14,11 +14,9 @@ import {
 export const doCreateUserWithEmailAndPassword = async (email, password, name) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
-  console.log("1: " , name);
   await updateProfile(user, {
         displayName: name,
   });
-    console.log("2: " , name);
 
   // 2. Save user data to Firestore
   const userDocRef = doc(db, 'users', user.uid); // Reference to a document in 'users' collection with user's UID
@@ -39,14 +37,14 @@ export const doCreateUserWithEmailAndPassword = async (email, password, name) =>
 export const doSignInWithEmailAndPassword = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
-
+/*
 export const doSignInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
   const result = await signInWithPopup(auth, provider);
   const user = result.user;
 
   // add user to firestore
-};
+};*/
 
 export const doSignOut = () => {
   return auth.signOut();

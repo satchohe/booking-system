@@ -1,6 +1,6 @@
 // src/context/authContext.js
 
-import { onAuthStateChanged, signOut } from "firebase/auth"; // signOut imported but not used in this snippet
+import { onAuthStateChanged, /*signOut*/ } from "firebase/auth"; // signOut imported but not used in this snippet
 import { auth, db } from "../../firebase/firebase"; // **IMPORT db (Firestore)**
 import React, { useContext, useEffect, useState } from "react";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore"; // **IMPORT Firestore functions**

@@ -20,7 +20,7 @@ import {
 import { db } from '../../firebase/firebase';
 import styles from './home.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileArrowDown, faU } from '@fortawesome/free-solid-svg-icons'
+import { faFileArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faShuffle } from '@fortawesome/free-solid-svg-icons';
 
@@ -32,14 +32,11 @@ const Home = () => {
     isManager,
     isStaff,
     isTenant,
-    userProfile,
     loading: authLoading
   } = useAuth();
 
   const [addTenant, setAddTenant] = useState(false);
-  const[editTenant, setEditTenant] = useState(false);
   const [tenants, setTenants] = useState([]);
-  const [bookings, setBookings] = useState([]);
   const [feedback, setFeedback] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [currentTenantId, setCurrentTenantId] = useState(null);
@@ -85,7 +82,7 @@ const Home = () => {
     return timestamp.toDate().toLocaleDateString('en-GB');
   };
 
-  const numberCheck = number => /^\d*\.?\d+$/.test(String(number));
+ // const numberCheck = number => /^\d*\.?\d+$/.test(String(number));
 
   const handleSubmit = async e => {
     e.preventDefault();

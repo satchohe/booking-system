@@ -1,6 +1,6 @@
 import  { useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '../../../firebase/auth'
+import { doSignInWithEmailAndPassword, /*doSignInWithGoogle */} from '../../../firebase/auth'
 import { useAuth } from '../../../context/authContext'
 import styles from './login.module.css'
 const Login = () => {
@@ -28,7 +28,7 @@ const Login = () => {
         }
         
     }
-
+/*
     const onGoogleSignIn = (e) => {
         try {
             e.preventDefault()
@@ -44,7 +44,7 @@ const Login = () => {
             
         }
         
-    }
+    }*/
 
     return (
         <div>
