@@ -75,7 +75,7 @@ const Home = () => {
     };
 
     fetchTenants();
-  }, [authLoading, isAdmin, isManager, isStaff]);
+  }, [authLoading, isAdmin, isManager, isStaff, currentUser.displayName]);
 
   const capitaliseWords = str =>
     str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
