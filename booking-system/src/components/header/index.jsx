@@ -1,5 +1,4 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/authContext'
 import { doSignOut } from '../../firebase/auth'
 import styles from './header.modules.css'
@@ -20,7 +19,7 @@ const Header = () => {
                     ? (
                         <button
                             onClick={handleLogout}
-                            className='logoutButton'
+                            className={styles.logoutButton}
                         >
                             Logout
                         </button>

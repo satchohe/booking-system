@@ -1,6 +1,6 @@
 // src/components/Home/Home.jsx
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/authContext';
 import { Navigate,Link } from 'react-router-dom';
 

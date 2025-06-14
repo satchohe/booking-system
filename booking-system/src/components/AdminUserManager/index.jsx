@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { httpsCallable } from 'firebase/functions';
-import { db, app, auth, functions } from '../../firebase/firebase';
+import { db, functions } from '../../firebase/firebase';
 import { useAuth } from '../../context/authContext';
-import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore'; // Ensure doc and deleteDoc are imported
+import { collection, getDocs } from 'firebase/firestore'; // Ensure doc and deleteDoc are imported
 import { Link } from 'react-router-dom';
 const AdminUsersManager = () => {
   const { isAdmin, currentUser, loading: authLoading } = useAuth();
