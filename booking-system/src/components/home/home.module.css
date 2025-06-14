@@ -1,0 +1,275 @@
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}
+body {
+  line-height:1;
+}
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+  display:block;
+}
+nav ul {
+  list-style:none;
+}
+  blockquote, q {
+  quotes:none;
+}
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+  content:'';
+  content:none;
+}
+a {
+  margin:0;
+  padding:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}
+/* change colours to suit your needs */
+ins {
+  background-color:#ff9;
+  color:#000;
+  text-decoration:none;
+}
+/* change colours to suit your needs */
+mark {
+  background-color:#ff9;
+  color:#000;
+  font-style:italic;
+  font-weight:bold;
+}
+del {
+  text-decoration: line-through;
+}
+abbr[title], dfn[title] {
+  border-bottom:1px dotted;
+  cursor:help;
+}
+table {
+  border-collapse:collapse;
+  border-spacing:0;
+}
+/* change border colour to suit your needs */
+hr {
+  display:block;
+  height:1px;
+  border:0;
+  border-top:1px solid #cccccc;
+  margin:1em 0;
+  padding:0;
+}
+input, select {
+  vertical-align:middle;
+}
+main{
+   display: flex;
+   align-items: center;
+   margin:  auto;
+   flex-direction: column;
+   row-gap: 40px;
+}
+.header{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-top: 150px;
+    width: 90%;
+    max-width: 1025px;
+}
+.buttonsCon{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+}
+.rightHeader{
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+
+
+}
+#adminPage{
+  background-color: #ffff;
+  border: 1px solid #7991A3;
+  color: #7991A3;
+}
+.title h1{
+  font-size: 20px;
+}
+.leftHeader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.header button{
+    background-color: #00BA66;
+    border: none;
+    height: 40px;
+    margin-right: 10px;
+     transition: all 0.3s ease;
+    
+
+    
+    width: 140px;
+    color: white;
+    border-radius:50px;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+
+}
+
+.header #exportData{
+    background-color: #ffff;
+    border: 1px solid #7991A3;
+    color: #7991A3;
+}
+.tableContainer {
+    width: 90%; /* Take 90% of the parent's width */
+    max-width: 1024px; /* Cap its maximum width */
+    overflow-x: auto; /* IMPORTANT: Makes the *container* scroll horizontally if the table overflows */
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; /* Apply shadow to the container */
+    margin: 20px auto; /* Optional: Center the container and add vertical margin */
+    border-radius: 8px; 
+    margin-bottom: 200px;
+
+}
+#tenantTable{
+     width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif;
+    /* Ensure no margin/padding pushes it out */
+    margin: 0; 
+    padding: 0;
+}
+#tenantTable th{
+    padding: 12px;
+    text-align: center;
+}
+
+#tenantTable td{
+    text-align: left;
+    padding: 20px;;
+
+}
+#tenantTable tr:nth-child(even){
+    background-color: #F6FAFD;
+}
+#tenantTable tr:last-child td{
+    padding-bottom: 50px;
+}
+#newTenant{
+ margin: auto;
+ width: 100%;
+ 
+
+}
+
+#newTenantForm{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 30px;
+    width: 80%;
+    max-width: 420px;
+
+    display: flex;
+    
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    row-gap: 5px;
+    margin: auto;
+    
+   
+}
+#newTenantForm label{
+    display: block;
+    text-align: left;
+}
+#newTenantForm input, #tags{
+    padding: 8px;
+    width: 80%;
+    border: 1px solid lightgrey;
+
+}
+
+#newTenantForm h2{
+    text-align: center;
+    margin-bottom: 10px;
+}
+#tags{
+    cursor: pointer;
+}
+#save{
+    background-color: #00BA66;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+
+}
+#tenantTable tr:hover{background-color: #daebf8;}
+#exportData:hover, #adminPage:hover{
+  opacity: 0.5;
+}
+.addBtn:hover{
+  background-color: #daebf8;
+  color:#7991A3
+
+}
+#editBtn, #deleteBtn{
+  width: 70px;
+  height: 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+
+
+}
+#editBtn{
+  margin-bottom: 10px;
+  background-color: #D5E4F8;
+  color: #1A61DB;
+}
+
+
+#deleteBtn{
+  background-color: #F53649;
+  color: white;
+}
+#editBtn:hover{
+  background-color: #1A61DB;
+  color: white;
+}
+ #deleteBtn:hover{
+  background-color: red;
+  
+ }
+@media only screen and (min-width: 768px) {
+    #tenantTable td{
+    padding: 30px;
+}
+   
+}
