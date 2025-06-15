@@ -52,10 +52,18 @@ const Home = () => {
 
   const [tag, setTag] = useState('tenant');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [tenantToDelete, setTenantToDelete] = useState(null);
+
 
   useEffect(() => {
     const fetchTenants = async () => {
-      if (authLoading || (!isAdmin && !isManager && !isStaff)) return;
+      // Ensure currentUser exists before trying to access its properties
+      // Also, check if roles are loaded or relevant for fetching
+      if (authLoading || !currentUser || (!isAdmin && !isManager && !isStaff)) {
+        setUsername(''); // Clear username if no user or no relevant roles
+        return;
+      }
 
       try {
         const querySnapshot = await getDocs(collection(db, 'bookings'));
@@ -64,7 +72,8 @@ const Home = () => {
           ...doc.data()
         }));
         setTenants(tenantsData);
-        setUsername(currentUser.displayName);
+        // Safely access displayName with optional chaining and fallback
+        setUsername(currentUser.displayName || currentUser.email || ''); 
       } catch (error) {
         console.error('Error fetching tenants:', error);
         setFeedback('Failed to load tenant data.');
@@ -72,7 +81,7 @@ const Home = () => {
     };
 
     fetchTenants();
-  }, [authLoading, isAdmin, isManager, isStaff]);
+  }, [authLoading, isAdmin, isManager, isStaff, currentUser]); // Added currentUser to dependencies array
 
   const capitaliseWords = str =>
     str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
@@ -81,8 +90,6 @@ const Home = () => {
     if (!timestamp || !timestamp.toDate) return '';
     return timestamp.toDate().toLocaleDateString('en-GB');
   };
-
- // const numberCheck = number => /^\d*\.?\d+$/.test(String(number));
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -104,6 +111,13 @@ const Home = () => {
       setFeedback('You do not have permission to add/edit tenants.');
       return;
     }
+    
+    // Ensure currentUser and currentUser.uid are available before proceeding
+    if (!currentUser || !currentUser.uid) {
+      setErrorMessage('User not authenticated or UID not available. Please log in.');
+      return;
+    }
+
 
     if(tenancyStartDate && tenancyEndDate){
       const startDate = new Date(tenancyStartDate);
@@ -127,7 +141,7 @@ const Home = () => {
         );
         const querySnapshot = await getDocs(q);
         if(!querySnapshot.empty){
-          alert("Another tenant with this email already exists");
+          setErrorMessage("Another tenant with this email already exists."); // Replaced alert
           return;
         }
         await updateDoc(tenantRef, {
@@ -143,13 +157,13 @@ const Home = () => {
           userId: currentUser.uid,
           username: username || '',
         });
-        alert('Tenant updated successfully!');
+        setFeedback('Tenant updated successfully!'); // Replaced alert
       } else {
 
         const q = query(collection(db, 'bookings'), where('email', '==', email));
         const querySnapshot = await getDocs(q);
         if(!querySnapshot.empty){
-          alert('Another tenant with this email already exists.');
+          setErrorMessage('Another tenant with this email already exists.'); // Replaced alert
           return;
         }
 
@@ -167,7 +181,7 @@ const Home = () => {
           userId: currentUser.uid,
           username: username || '',
         });
-        alert('Tenant added successfully!');
+        setFeedback('Tenant added successfully!'); // Replaced alert
       }
 
       // Reset form
@@ -201,7 +215,6 @@ const Home = () => {
       setFeedback('You do not have permission to delete tenants.');
       return;
     }
-
     try {
       await deleteDoc(doc(db, 'bookings', id));
       setTenants(tenants.filter(tenant => tenant.id !== id));
@@ -209,8 +222,23 @@ const Home = () => {
     } catch (error) {
       console.error('Error deleting tenant:', error);
       setFeedback(`Failed to delete tenant: ${error.message}`);
+    } finally {
+        setShowConfirmModal(false); // Close modal after action
+        setTenantToDelete(null); // Clear tenant to delete
     }
   };
+
+  // Function to show the confirmation modal
+  const handleConfirmDelete = (tenant) => {
+    setTenantToDelete(tenant);
+    setShowConfirmModal(true);
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmModal(false);
+    setTenantToDelete(null);
+  };
+
 
   const handleEditClick = tenant => {
     setIsEditing(true);
@@ -322,13 +350,12 @@ const Home = () => {
                 {(isAdmin || isManager) && (<button id={styles.exportData} onClick={exportToCSV}><FontAwesomeIcon icon={faFileArrowDown} style={{color: "#7991a3", paddingRight: '4px'}} />
                   Export to Excel
                 </button> )}
-                     
+                      
 
               </div>
               <div className={styles.rightHeader}> {isAdmin &&(<div><Link to={'/admin'} ><button id={styles.adminPage}><FontAwesomeIcon icon={faShuffle}style={{ color: "#7991a3", paddingRight: '4px' }}/>Change roles</button></Link> </div>)}</div>
-          
-            </>
             
+            </>
           )}
         </div>     
       </header>
@@ -338,6 +365,7 @@ const Home = () => {
           {feedback}
         </p>
       )}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>} {/* Display general form error messages */}
 
       {(isAdmin || isManager || isStaff) && (
         <div className={styles.tableContainer}>
@@ -375,11 +403,7 @@ const Home = () => {
                     <td>{tenant.tag}</td>
                     <td>{tenant.username}</td>
                     <td>{(isAdmin || isManager ||isStaff) &&(<button id={styles.editBtn} onClick={() => handleEditClick(tenant)}>Edit</button>)}
-                        {(isAdmin || isManager) &&(<button id={styles.deleteBtn}onClick={()=>{
-                          if (window.confirm(`Are you sure you want to delete ${tenant.firstname} ${tenant.lastName}'s record?`)) {
-                              handleDelete(tenant.id);
-                          }
-                        }}>Delete</button>)}
+                        {(isAdmin || isManager) &&(<button id={styles.deleteBtn}onClick={() => handleConfirmDelete(tenant)}>Delete</button>)} {/* Changed to use custom confirmation */}
                     </td>
 
                   </tr>
@@ -393,7 +417,7 @@ const Home = () => {
             {isManager ? ' Manager' : ''}
             {isStaff ? ' Staff' : ''}
             {isTenant ? ' Tenant' : ''}
-           <br></br> {currentUser.email}
+            <br></br> {currentUser?.email} {/* Safely access email */}
           </p>
           
         </div>
@@ -446,8 +470,21 @@ const Home = () => {
           </form>
         </div>
       )}
-      
 
+      {/* Confirmation Modal */}
+      {showConfirmModal && tenantToDelete && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete {tenantToDelete.firstname} {tenantToDelete.lastName}'s record?</p>
+            <div className={styles.modalActions}>
+              <button onClick={() => handleDelete(tenantToDelete.id)} className={styles.confirmBtn}>Delete</button>
+              <button onClick={handleCancelDelete} className={styles.cancelBtn}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+      
     </main>
   );
 };
