@@ -7,8 +7,11 @@ const Header = () => {
     const { userLoggedIn } = useAuth()
 
     const handleLogout =  () => {
+        console.log("Sign out1");
         doSignOut();
+        console.log("Signout 2");
         navigate('/')
+
        
     }
 
