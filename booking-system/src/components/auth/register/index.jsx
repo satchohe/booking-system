@@ -17,6 +17,9 @@ const Register = () => {
     const { userLoggedIn } = useAuth()
 
     const onSubmit = async (e) => {
+        const trimmedEmail = email.trim();
+        const trimmedPassword = password.trim();
+        const trimmedName = name.trim();
         e.preventDefault();
         setErrorMessage("");
         if (password !== confirmPassword) {
@@ -32,7 +35,7 @@ const Register = () => {
 
             
         try {           
-             await doCreateUserWithEmailAndPassword(email, password, name);
+             await doCreateUserWithEmailAndPassword(trimmedEmail, trimmedPassword, trimmedName);
              navigate('/home');     
         } catch (error) {
             setIsRegistering(false);
