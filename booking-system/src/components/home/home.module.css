@@ -43,13 +43,13 @@ a {
   vertical-align:baseline;
   background:transparent;
 }
-/* change colours to suit your needs */
+
 ins {
   background-color:#ff9;
   color:#000;
   text-decoration:none;
 }
-/* change colours to suit your needs */
+
 mark {
   background-color:#ff9;
   color:#000;
@@ -67,7 +67,7 @@ table {
   border-collapse:collapse;
   border-spacing:0;
 }
-/* change border colour to suit your needs */
+
 hr {
   display:block;
   height:1px;
@@ -147,11 +147,11 @@ main{
     color: #7991A3;
 }
 .tableContainer {
-    width: 90%; /* Take 90% of the parent's width */
-    max-width: 1024px; /* Cap its maximum width */
-    overflow-x: auto; /* IMPORTANT: Makes the *container* scroll horizontally if the table overflows */
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; /* Apply shadow to the container */
-    margin: 20px auto; /* Optional: Center the container and add vertical margin */
+    width: 90%;
+    max-width: 1024px;
+    overflow-x: auto;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin: 20px auto;
     border-radius: 8px; 
     margin-bottom: 200px;
 
@@ -160,7 +160,7 @@ main{
      width: 100%;
     border-collapse: collapse;
     font-family: Arial, Helvetica, sans-serif;
-    /* Ensure no margin/padding pushes it out */
+   
     margin: 0; 
     padding: 0;
 }
@@ -306,16 +306,16 @@ main{
 }
 
 .confirmBtn {
-    background-color: #dc2626; /* Red for delete */
+    background-color: #dc2626;
     color: white;
 }
 
 .cancelBtn {
-    background-color: #e2e8f0; /* Light gray */
+    background-color: #e2e8f0;
     color: #334155;
 }
 
-/* Existing styles for errorMsg/successMsg */
+
 .errorMsg {
     color: red;
     margin-top: 10px;

@@ -26,8 +26,7 @@ export const doCreateUserWithEmailAndPassword = async (email, password, name) =>
     name: name, 
     createdAt: new Date(),
     role: 'tenant',
-    // You can add default roles or other initial data here if needed, e.g.:
-    // role: 'tenant',
+  
   });
     console.log("3: " , name);
 

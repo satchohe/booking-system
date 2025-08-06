@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { httpsCallable } from 'firebase/functions';
 import { db, functions } from '../../firebase/firebase';
 import { useAuth } from '../../context/authContext';
-import { collection, getDocs } from 'firebase/firestore'; // Ensure doc and deleteDoc are imported
+import { collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 const AdminUsersManager = () => {
   const { isAdmin, currentUser, loading: authLoading } = useAuth();
@@ -14,9 +14,9 @@ const AdminUsersManager = () => {
   const [usersList, setUsersList] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
 
-  // Callable Cloud Function reference
+
   const assignUserRoleCallable = httpsCallable(functions, 'assignUserRole');
-  // NEW: Callable Cloud Function for deleting users
+  
   const deleteUserAccountCallable = httpsCallable(functions, 'deleteUserAccount');
 
   // Effect to fetch all users from Firestore

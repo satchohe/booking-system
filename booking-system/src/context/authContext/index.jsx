@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
       setCurrentUser(user);
       setUserLoggedIn(true);
 
-      // 1. Get Custom Claims (secure source for roles)
+      // Get Custom Claims (secure source for roles)
       const idTokenResult = await user.getIdTokenResult(true); // Forces token refresh to get latest claims
       const claims = idTokenResult.claims;
 
@@ -51,7 +51,7 @@ export function AuthProvider({ children }) {
       // A user is a tenant if they are authenticated but neither admin, manager, nor staff
       setIsTenant(!adminClaim && !managerClaim && !staffClaim);
 
-      // 2. Fetch or create user profile from Firestore 'users' collection
+      // Fetch or create user profile from Firestore 'users' collection
       const userDocRef = doc(db, "users", user.uid);
       const userDocSnap = await getDoc(userDocRef);
 
@@ -97,7 +97,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {loading ? <div>Loading authentication...</div> : children} {/* Show loading while auth is initializing */}
+      {loading ? <div>Loading authentication...</div> : children} {/* Show loading while auth is initialising */}
     </AuthContext.Provider>
   );
 }

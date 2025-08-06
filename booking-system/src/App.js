@@ -6,7 +6,7 @@ import AdminUsersManager from "./components/AdminUserManager";
 import { AuthProvider } from "./context/authContext";
 import { useRoutes } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons'; // Import all solid icons
+import { fas } from '@fortawesome/free-solid-svg-icons'; 
 library.add(fas); 
 
 function App() {
